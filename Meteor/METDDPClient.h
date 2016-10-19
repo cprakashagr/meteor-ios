@@ -106,6 +106,8 @@ typedef void (^METLogOutCompletionHandler)(NSError * __nullable error);
 - (nullable id)callMethodWithName:(NSString *)methodName parameters:(nullable NSArray *)parameters completionHandler:(nullable METMethodCompletionHandler)completionHandler;
 - (nullable id)callMethodWithName:(NSString *)methodName parameters:(nullable NSArray *)parameters;
 
+- (void)loginWithMethodName:(NSString *)methodName parameters:(nullable NSArray *)parameters completionHandler:(nullable METLogInCompletionHandler)completionHandler;
+
 #pragma mark - Accounts
 /// @name Accessing Account Status
 
