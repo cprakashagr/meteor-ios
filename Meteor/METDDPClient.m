@@ -101,7 +101,10 @@ NSString * const METDDPClientDidChangeAccountNotification = @"METDDPClientDidCha
     _connectionRetryStrategy.randomizationFactor = 0.5;
     
     _connectionRetryTimer = [[METTimer alloc] initWithQueue:_queue block:^{
-      [self tryConnecting];
+        if (self.networkReachabilityManager.reachabilityStatus == METNetworkReachabilityStatusReachable)
+        {
+            [self tryConnecting];
+        }
     }];
     
     _networkReachabilityManager = [[METNetworkReachabilityManager alloc] initWithHostName:connection.serverURL.host];
@@ -186,7 +189,10 @@ NSString * const METDDPClientDidChangeAccountNotification = @"METDDPClientDidCha
   @synchronized(self) {
     if (_connectionStatus == METDDPConnectionStatusOffline || _connectionStatus == METDDPConnectionStatusWaiting) {
         _numberOfConnectionRetryAttempts = 0;
-      [self tryConnecting];
+       if (self.networkReachabilityManager.reachabilityStatus == METNetworkReachabilityStatusReachable)
+       {
+           [self tryConnecting];
+       }
     }
   }
 }
@@ -450,7 +456,7 @@ NSString * const METDDPClientDidChangeAccountNotification = @"METDDPClientDidCha
     METDataUpdate *update = [[METDataUpdate alloc] initWithUpdateType:METDataUpdateTypeAdd documentKey:documentKey fields:fields];
     [self processDataUpdate:update];
   }
-  [self.delegate didReceiveAddedMessage:message];
+  [_delegate didReceiveAddedMessage:message];
 }
 
 - (void)didReceiveChangedMessage:(NSDictionary *)message {
