@@ -127,6 +127,7 @@ typedef void (^METLogOutCompletionHandler)(NSError * __nullable error);
 
 - (void)clientDidEstablishConnection:(METDDPClient *)client;
 - (void)client:(METDDPClient *)client didFailWithError:(NSError *)error;
+- (void)didReceiveAddedMessage:(NSDictionary *)message;
 
 @end
 
